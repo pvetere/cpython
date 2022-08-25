@@ -376,7 +376,9 @@ class BuildProfile:
     def run_build(self, force_configure: bool = False):
         """Run configure (if necessary) and make"""
         if force_configure or not self.makefile.exists():
-            self.run_configure()
+            pyroot = "/home/pvetere/code/python-wasi-vfs/pyroot"
+            os.makedirs(pyroot, exist_ok=True)
+            self.run_configure(f"--prefix={pyroot}")
         self.run_make()
 
     def run_configure(self, *args):
